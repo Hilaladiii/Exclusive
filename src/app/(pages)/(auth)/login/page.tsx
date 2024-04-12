@@ -14,8 +14,9 @@ const LoginPage = () => {
           alt="ilustration people shopping"
           priority
         />
-        <div className="w-full max-w-lg">
-          <h1 className="text-3xl mb-3">Log in to Exclusive</h1>
+        <div className="w-full max-w-md">
+          <h1 className="text-3xl mb-6">Log in to Exclusive</h1>
+          <p className="mb-12">Enter your details below</p>
           <LoginForm />
         </div>
       </div>
