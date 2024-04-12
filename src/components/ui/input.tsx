@@ -46,7 +46,7 @@ const Input = <TInput extends FieldValues>({
         {...register(name)}
         {...props}
       />
-      {error && <span className="text-red-400 text-xs">{error.message}</span>}
+      {error && <span className="text-red-400 text-sm">{error.message}</span>}
     </div>
   );
 };
