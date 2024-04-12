@@ -13,6 +13,7 @@ interface InputProps<TInput extends FieldValues>
   register: UseFormRegister<TInput>;
   error: FieldError | undefined;
   label: string;
+  variant?: "primary" | "secondary";
 }
 
 const Input = <TInput extends FieldValues>({
@@ -23,13 +24,22 @@ const Input = <TInput extends FieldValues>({
   label,
   register,
   error,
+  variant = "primary",
   ...props
 }: InputProps<TInput>) => {
   return (
     <div className="flex flex-col">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className="text-base">
+        {label}
+      </label>
       <input
-        className={cn("", className)}
+        className={cn(
+          "text-black  text-base py-2",
+          variant === "primary" && "bg-white",
+          variant === "secondary" &&
+            "bg-white border-b-[1px] border-b-black outline-none",
+          className
+        )}
         type={type}
         id={name}
         placeholder={placeholder}
