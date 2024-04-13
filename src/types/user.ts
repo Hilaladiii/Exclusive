@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const userSchema = z.object({
-  firstname: z.string().min(5, "minimum username is 5 characters"),
-  lastname: z.string().min(5, "minimum username is 5 characters"),
+  firstname: z.string().min(1, "firstname is required"),
+  lastname: z.string().min(1, "lastname is required"),
   email: z.string().email(),
   password: z
     .string()
