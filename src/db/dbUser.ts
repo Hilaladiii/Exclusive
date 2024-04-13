@@ -39,3 +39,32 @@ export async function Register(userData: UserType) {
     };
   }
 }
+
+export async function Login(userData: { email: string; password: string }) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userData.email,
+      },
+    });
+    console.log(user);
+    if (user) {
+      const isPasswordValid = await bcryptjs.compare(
+        userData.password,
+        user.password
+      );
+      if (isPasswordValid) {
+        return {
+          name: user.firstname + user.lastname,
+          email: user.email,
+        };
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  } catch (error) {
+    return null;
+  }
+}
