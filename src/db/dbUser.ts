@@ -1,4 +1,4 @@
-import { UserType, userSchema } from "@/types/user";
+import { UserType, userSchema } from "@/common/types/user";
 import { prisma } from "./prisma";
 import bcryptjs from "bcryptjs";
 

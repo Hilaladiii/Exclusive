@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/lib/axios";
-import { UserType } from "@/types/user";
+import { axiosInstance } from "@/common/lib/axios";
+import { UserType } from "@/common/types/user";
 import { AxiosError } from "axios";
 
 export const registerUser = async (userData: UserType) => {
