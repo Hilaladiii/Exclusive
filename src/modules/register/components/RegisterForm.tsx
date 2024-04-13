@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "@/components/ui/button";
-import Input from "@/components/ui/input";
+import Button from "@/common/components/elements/button";
+import Input from "@/common/components/elements/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { UserType, userSchema } from "@/types/user";
+import { UserType, userSchema } from "@/common/types/user";
 import { registerMutation } from "@/queries/userQuery";
 import { useState } from "react";
 import clsx from "clsx";
@@ -78,21 +78,19 @@ const RegisterForm = () => {
       >
         {message.message}
       </p>
-      <div className="flex flex-col justify-between items-center">
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={registerUser.isPending}
-        >
-          {registerUser.isPending ? "Creating..." : "Create Account"}
-        </Button>
-        <p className="mt-2">
-          Already have an account?{" "}
-          <Link href="/login" className="underline">
-            Login
-          </Link>
-        </p>
-      </div>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={registerUser.isPending}
+      >
+        {registerUser.isPending ? "Creating..." : "Create Account"}
+      </Button>
+      <p className="mt-2 text-center">
+        Already have an account?{" "}
+        <Link href="/login" className="underline">
+          Login
+        </Link>
+      </p>
     </form>
   );
 };

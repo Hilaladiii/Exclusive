@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/ui/button";
-import Input from "@/components/ui/input";
+import Button from "@/common/components/elements/button";
+import Input from "@/common/components/elements/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ const loginSchema = z.object({
 
 type LoginType = z.infer<typeof loginSchema>;
 
-const LoginForm = () => {
+export default function LoginForm() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<String>("");
   const {
@@ -83,6 +83,4 @@ const LoginForm = () => {
       </p>
     </form>
   );
-};
-
-export default LoginForm;
+}

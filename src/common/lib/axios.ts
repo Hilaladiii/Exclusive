@@ -1,4 +1,4 @@
-import { UserType } from "@/types/user";
+import { UserType } from "@/common/types/user";
 import axios from "axios";
 
 export const axiosInstance = axios.create({

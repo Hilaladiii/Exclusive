@@ -1,6 +1,6 @@
 "use client";
-import Footer from "../Footer";
-import Navbar from "../Navbar";
+import Footer from "./Footer";
+import Navbar from "./Navbar";
 import { ReactQueryProvider } from "@/providers/TanstackProviders";
 import { NextAuthProvider } from "@/providers/NextAuthProvider";
 
