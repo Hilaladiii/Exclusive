@@ -1,5 +1,6 @@
 import CategoriesLinkHome from "./BannerSideLink/CategoriesLinkHome";
 import SwiperPromotionHome from "./BannerSideLink/SwiperPromotionHome";
+import FlashSale from "./FlashSale/FlashSale";
 
 export default function HomePage() {
   return (
@@ -9,6 +10,7 @@ export default function HomePage() {
         <div className="mr-20 min-h-full w-1 bg-black/20" />
         <SwiperPromotionHome />
       </div>
+      <FlashSale />
     </div>
   );
 }
