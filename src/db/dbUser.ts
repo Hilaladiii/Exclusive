@@ -1,5 +1,5 @@
 import { UserType, userSchema } from "@/common/types/user";
-import { prisma } from "./prisma";
+import { prisma } from "../common/lib/prisma";
 import bcryptjs from "bcryptjs";
 
 export async function Register(userData: UserType) {
