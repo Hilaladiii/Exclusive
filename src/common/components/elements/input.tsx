@@ -34,11 +34,11 @@ const Input = <TInput extends FieldValues>({
       </label>
       <input
         className={cn(
-          "text-black  text-base py-2",
+          "py-2  text-base text-black",
           variant === "primary" && "bg-white",
           variant === "secondary" &&
-            "bg-white border-b-[1px] border-b-black outline-none",
-          className
+            "border-b-[1px] border-b-black bg-white outline-none",
+          className,
         )}
         type={type}
         id={name}
@@ -46,7 +46,7 @@ const Input = <TInput extends FieldValues>({
         {...register(name)}
         {...props}
       />
-      {error && <span className="text-red-400 text-sm">{error.message}</span>}
+      {error && <span className="text-sm text-red-400">{error.message}</span>}
     </div>
   );
 };

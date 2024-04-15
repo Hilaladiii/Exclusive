@@ -45,7 +45,7 @@ export default function Banner() {
               src={item.src}
               width={1300}
               height={1300}
-              className="w-full h-auto object-cover"
+              className="h-auto w-full object-cover"
               priority
             />
           </SwiperSlide>

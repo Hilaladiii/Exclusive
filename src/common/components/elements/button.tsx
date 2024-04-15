@@ -18,15 +18,15 @@ const Button = ({
     <button
       {...props}
       className={clsx(
-        "text-base font-medium rounded transition-colors duration-300",
+        "rounded text-base font-medium transition-colors duration-300",
         {
-          "py-3 px-12": size === "big",
-          "py-2 px-8": size === "small",
-          "text-white bg-secondary2 hover:bg-hover1": variant === "primary",
-          "text-black hover:text-text1 bg-white hover:bg-white/30 border border-black/50 hover:border-black/30":
+          "px-12 py-3": size === "big",
+          "px-8 py-2": size === "small",
+          "bg-secondary2 text-white hover:bg-hover1": variant === "primary",
+          "border border-black/50 bg-white text-black hover:border-black/30 hover:bg-white/30 hover:text-text1":
             variant === "secondary",
         },
-        className
+        className,
       )}
     >
       {props.children}

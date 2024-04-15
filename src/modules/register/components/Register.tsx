@@ -3,7 +3,7 @@ import RegisterForm from "./RegisterForm";
 
 export default function Register() {
   return (
-    <div className="w-full flex justify-between items-center mt-14">
+    <div className="mt-14 flex w-full items-center justify-between">
       <Image
         src="/ilustration.gif"
         width={600}
@@ -12,7 +12,7 @@ export default function Register() {
         priority
       />
       <div className="w-full max-w-md">
-        <h1 className="text-3xl mb-6">Create an account</h1>
+        <h1 className="mb-6 text-3xl">Create an account</h1>
         <p className="mb-12">Enter your details below</p>
         <RegisterForm />
       </div>

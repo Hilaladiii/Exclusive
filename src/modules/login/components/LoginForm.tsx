@@ -66,7 +66,7 @@ export default function LoginForm() {
         variant="secondary"
       />
       <p className="text-center text-sm text-red-500">{errorMessage}</p>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Button type="submit">{isSubmitting ? "Loading..." : "Login"}</Button>
         <Link href="/" className="text-sm text-secondary2">
           Forget Password?

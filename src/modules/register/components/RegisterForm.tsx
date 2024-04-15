@@ -72,7 +72,7 @@ const RegisterForm = () => {
         variant="secondary"
       />
       <p
-        className={clsx("text-center text-sm text-black mt-2", {
+        className={clsx("mt-2 text-center text-sm text-black", {
           "text-red-500": message.status === 400,
         })}
       >
