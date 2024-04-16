@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/common/components/elements/button";
-import Input from "@/common/components/elements/input";
+import Button from "@/common/components/elements/Button";
+import Input from "@/common/components/elements/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
