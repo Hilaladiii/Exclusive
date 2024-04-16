@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React, { ButtonHTMLAttributes } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "black";
   size?: "big" | "small";
   className?: string;
   children: React.ReactNode;
@@ -25,6 +25,7 @@ const Button = ({
           "bg-secondary2 text-white hover:bg-hover1": variant === "primary",
           "border border-black/50 bg-white text-black hover:border-black/30 hover:bg-white/30 hover:text-text1":
             variant === "secondary",
+          "bg-black text-white hover:bg-black/80": variant === "black",
         },
         className,
       )}
