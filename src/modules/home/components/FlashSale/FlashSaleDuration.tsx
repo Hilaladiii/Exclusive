@@ -1,4 +1,5 @@
 "use client";
+import BadgeSection from "@/common/components/fragments/BadgeSection";
 import dynamic from "next/dynamic";
 
 const TimerClient = dynamic(
@@ -8,7 +9,7 @@ const TimerClient = dynamic(
 export default function FlashSaleDuration() {
   return (
     <div className="mt-10 flex flex-row items-end gap-10">
-      <h2 className="text-4xl font-semibold">Flash Sales</h2>
+      <BadgeSection title="Today's" section="Flash Sales" />
       <TimerClient targetDateTime="2024-04-30T00:00:00" />
     </div>
   );
