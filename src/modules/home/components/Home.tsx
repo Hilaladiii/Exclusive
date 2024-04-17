@@ -1,5 +1,6 @@
 import CategoriesLinkHome from "./BannerSideLink/CategoriesLinkHome";
 import SwiperPromotionHome from "./BannerSideLink/SwiperPromotionHome";
+import BrowseByCategory from "./BrowseByCategory/BrowseByCategory";
 import FlashSale from "./FlashSale/FlashSale";
 
 export default function HomePage() {
@@ -11,6 +12,7 @@ export default function HomePage() {
         <SwiperPromotionHome />
       </div>
       <FlashSale />
+      <BrowseByCategory />
     </div>
   );
 }
