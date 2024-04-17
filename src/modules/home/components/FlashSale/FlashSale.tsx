@@ -1,16 +1,18 @@
 "use client";
 
-import BadgeCategory from "@/common/components/elements/BadgeCategory";
 import FlashSaleDuration from "./FlashSaleDuration";
 import FlashSaleProducts from "./FlashSaleProducts";
+import Button from "@/common/components/elements/Button";
 
 export default function FlashSale() {
   return (
     <div className="flex w-full flex-col">
-      <BadgeCategory title="Today's" />
       <FlashSaleDuration />
       <div>
         <FlashSaleProducts />
+        <Button variant="primary" className="mx-auto mt-14 flex">
+          View All Products
+        </Button>
       </div>
     </div>
   );
