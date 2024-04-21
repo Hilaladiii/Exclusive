@@ -6,7 +6,7 @@ import Button from "@/common/components/elements/Button";
 
 export default function FlashSale() {
   return (
-    <div className="flex w-full flex-col">
+    <section className="flex w-full flex-col">
       <FlashSaleDuration />
       <div>
         <FlashSaleProducts />
@@ -14,6 +14,6 @@ export default function FlashSale() {
           View All Products
         </Button>
       </div>
-    </div>
+    </section>
   );
 }

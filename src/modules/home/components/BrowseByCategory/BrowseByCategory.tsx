@@ -11,7 +11,7 @@ import {
 
 export default function BrowseByCategory() {
   return (
-    <div>
+    <section>
       <BadgeSection
         title="Categories"
         section="Browse By Category"
@@ -36,6 +36,6 @@ export default function BrowseByCategory() {
           <IconGaming />
         </CategoryPhone>
       </div>
-    </div>
+    </section>
   );
 }
