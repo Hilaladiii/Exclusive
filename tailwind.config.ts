@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        "slide-up": {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -26,6 +32,9 @@ const config: Config = {
         button1: "#00FF66",
         hover1: "#E07575",
         hover2: "#A0BCE0",
+      },
+      animation: {
+        "slide-up": "slide-up 1s ",
       },
     },
   },
