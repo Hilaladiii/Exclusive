@@ -25,7 +25,7 @@ const images = [
   },
 ];
 
-export default function Banner() {
+export default function SwiperPromotionHome() {
   return (
     <Swiper
       slidesPerView={1}
