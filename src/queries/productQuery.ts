@@ -1,4 +1,9 @@
-import { AddProduct, getProducts } from "@/services/productService";
+import {
+  AddProduct,
+  getProducts,
+  getProductsPromotion,
+  getProductsPromotionById,
+} from "@/services/productService";
 import { UploadProductType } from "@/common/types/product";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -20,5 +25,19 @@ export function getProductsQuery() {
   return useQuery({
     queryKey: ["products"],
     queryFn: () => getProducts(),
+  });
+}
+
+export function getProductsPromotionQuery() {
+  return useQuery({
+    queryKey: ["products-promotion"],
+    queryFn: () => getProductsPromotion(),
+  });
+}
+
+export function getProductsPromotionByIdQuery({ id }: { id: string }) {
+  return useQuery({
+    queryKey: ["products", { id }],
+    queryFn: () => getProductsPromotionById({ id }),
   });
 }
