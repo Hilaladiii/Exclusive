@@ -29,10 +29,11 @@ model Product {
   id_product String @id @default(uuid())
   name String @db.VarChar(50)
   price Int 
-  rating Float
-  isPromotion Boolean
-  description String
+  rating Float  
+  promotionValue Int @default(0)
+  description String @db.LongText()
   size  Size @default(NONE)
+  image String
   categories Category[]
   wishlists WishList[]
   purchases Purchase[]
