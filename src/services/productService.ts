@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/common/lib/axios";
-import { UploadProductType } from "@/common/types/product";
+import { ProductType, UploadProductType } from "@/common/types/product";
 import { AxiosError } from "axios";
 
 export async function AddProduct(productData: UploadProductType) {
@@ -52,6 +52,38 @@ export async function getProducts() {
       data: res.data,
       status: res.status,
       message: res.data.message,
+    };
+  } catch (error) {
+    return {
+      message: (error as Error).message,
+      status: 500,
+    };
+  }
+}
+
+export async function getProductsPromotion() {
+  try {
+    const res = await axiosInstance.get("/products/promotion");
+    return {
+      data: res.data,
+      message: res.data.message,
+      status: res.status,
+    };
+  } catch (error) {
+    return {
+      message: (error as Error).message,
+      status: 500,
+    };
+  }
+}
+
+export async function getProductsPromotionById({ id }: { id: string }) {
+  try {
+    const res = await axiosInstance.get(`/products/promotion?id=${id}`);
+    return {
+      data: res.data,
+      message: res.data.message,
+      status: res.status,
     };
   } catch (error) {
     return {
