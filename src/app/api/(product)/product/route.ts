@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
       promotionValue: parseInt(productData.get("promotionValue") as string),
       image: productData.get("image") as File,
     });
-    console.log(res);
     return new Response(res.message, {
       status: res.status,
     });

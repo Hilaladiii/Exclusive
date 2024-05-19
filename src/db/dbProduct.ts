@@ -4,14 +4,11 @@ import { put } from "@vercel/blob";
 
 export async function addProduct(productData: UploadProductType) {
   try {
-    console.log(productData.image);
-    console.log(productData);
     const { url } = await put(productData.image.name, productData.image, {
       access: "public",
       multipart: true,
     });
     const image = url;
-    console.log(image);
     const res = await prisma.product.create({
       data: {
         name: productData.name,
@@ -28,7 +25,6 @@ export async function addProduct(productData: UploadProductType) {
       data: res,
     };
   } catch (error) {
-    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,
@@ -93,7 +89,6 @@ export async function getProductsPromotionById({ id }: { id: string }) {
         },
       },
     });
-    console.log(res);
     return {
       status: res != null ? 200 : 404,
       data: res,
@@ -115,7 +110,6 @@ export async function getProductById({ id }: { id: string }) {
         id_product: id,
       },
     });
-    console.log(res);
     return {
       status: res != null ? 200 : 404,
       data: res,
