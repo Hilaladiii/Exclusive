@@ -4,29 +4,48 @@ import Button from "../elements/Button";
 import Stars from "../elements/Stars";
 import { useState } from "react";
 import { cn } from "@/common/lib/utils";
+import Link from "next/link";
 
-export default function CardProduct() {
+export default function CardProduct({
+  image,
+  promotionValue = 0,
+  title,
+  price,
+  rating,
+  id,
+}: {
+  image: string;
+  promotionValue?: number;
+  title: string;
+  price: number;
+  rating: number;
+  id: string;
+}) {
   const [isWishlist, setIsWishlist] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   return (
-    <div className="w-72 animate-slide-up rounded shadow-xl ">
+    <div className="w-72 rounded shadow-md">
       <div className="group relative flex items-center justify-center pb-8 pt-16">
-        <Image
-          src={"/product.jpg"}
-          width={200}
-          height={200}
-          alt={"product"}
-          className={cn(
-            "h-36 w-36 object-contain",
-            isLoading ? "scale-100 blur-sm" : "scale-100 blur-0",
-          )}
-          loading="lazy"
-          onLoad={() => setIsLoading(false)}
-        />
+        <Link href={`/products/${id}`} className="cursor-pointer">
+          <Image
+            src={image}
+            width={200}
+            height={200}
+            alt={title}
+            className={cn(
+              "h-36 w-36 object-contain",
+              isLoading ? "scale-100 blur-sm" : "scale-100 blur-0",
+            )}
+            loading="lazy"
+            onLoad={() => setIsLoading(false)}
+          />
+        </Link>
         <div className="absolute left-5 top-5">
-          <p className="rounded bg-secondary2 px-5 py-2 text-xs text-white">
-            -40%
-          </p>
+          {promotionValue != 0 && (
+            <p className="rounded bg-secondary2 px-5 py-2 text-xs text-white">
+              -{promotionValue}%
+            </p>
+          )}
         </div>
         {isWishlist ? (
           <HiHeart
@@ -50,12 +69,16 @@ export default function CardProduct() {
         </Button>
       </div>
       <div className="px-5 py-4">
-        <h3 className="text-base font-medium">HAVIT HV-G92 Gamepad</h3>
+        <h3 className="text-base font-medium">{title}</h3>
         <div className="mt-2 flex items-center gap-2">
-          <p className="font-medium text-secondary2">${100 * (1 - 40 / 100)}</p>
-          <p className="text-gray-400 line-through">$100</p>
+          <p className="font-medium text-secondary2">
+            ${price * (1 - promotionValue / 100)}
+          </p>
+          {promotionValue != 0 && (
+            <p className="text-gray-400 line-through">${price}</p>
+          )}
         </div>
-        <Stars rating={4.8} />
+        <Stars rating={rating} />
       </div>
     </div>
   );
