@@ -16,13 +16,14 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 export const productSchema = z.object({
-  // id_product: z.string(),
-  name: z.string().max(50).min(1, "required"),
+  id_product: z.string(),
+  name: z.string().max(50),
   price: z.coerce.number().nonnegative(),
   rating: z.coerce.number().nonnegative(),
   promotionValue: z.coerce.number().optional(),
   description: z.string(),
-  // size: z.nativeEnum(Size),
+  image: z.string(),
+  size: z.nativeEnum(Size),
 });
 
 export const uploadProductSchema = z.object({
