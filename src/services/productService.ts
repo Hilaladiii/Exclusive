@@ -92,3 +92,19 @@ export async function getProductsPromotionById({ id }: { id: string }) {
     };
   }
 }
+
+export async function getProductsById({ id }: { id: string }) {
+  try {
+    const res = await axiosInstance.get(`/products?id=${id}`);
+    return {
+      data: res.data,
+      message: res.data.message,
+      status: res.status,
+    };
+  } catch (error) {
+    return {
+      message: (error as Error).message,
+      status: 500,
+    };
+  }
+}
