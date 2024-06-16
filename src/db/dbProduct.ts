@@ -32,9 +32,25 @@ export async function addProduct(productData: UploadProductType) {
   }
 }
 
-export async function getProducts() {
+export async function getProducts(email: string) {
   try {
-    const res = await prisma.product.findMany();
+    const res = await prisma.product.findMany({
+      select: {
+        image: true,
+        promotionValue: true,
+        name: true,
+        price: true,
+        rating: true,
+        id_product: true,
+      },
+      where: {
+        wishlists: {
+          none: {
+            email: email,
+          },
+        },
+      },
+    });
     return {
       res: 200,
       data: res,
@@ -48,14 +64,26 @@ export async function getProducts() {
   }
 }
 
-export async function getProductsPromotion() {
+export async function getProductsPromotion(email: string) {
   try {
     const res = await prisma.product.findMany({
       where: {
-        promotionValue: {
-          not: 0,
-        },
+        AND: [
+          {
+            promotionValue: {
+              not: 0,
+            },
+          },
+          {
+            wishlists: {
+              none: {
+                email: "popolkupa@gmail.com",
+              },
+            },
+          },
+        ],
       },
+
       select: {
         id_product: true,
         name: true,
@@ -66,6 +94,7 @@ export async function getProductsPromotion() {
         size: true,
       },
     });
+
     return {
       status: 200,
       data: res,
@@ -109,11 +138,109 @@ export async function getProductById({ id }: { id: string }) {
       where: {
         id_product: id,
       },
+      include: {
+        wishlists: true,
+      },
     });
     return {
       status: res != null ? 200 : 404,
       data: res,
       message: res != null ? "Succes to get product by id" : "not found",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function wishListProduct({
+  email,
+  id,
+}: {
+  email: string;
+  id: string;
+}) {
+  try {
+    const res = await prisma.wishList.create({
+      data: {
+        email: email,
+        id_product: id,
+      },
+    });
+
+    if (res) {
+      return {
+        status: 201,
+        message: "Wishlist Product Successfuly",
+        data: res,
+      };
+    } else {
+      return {
+        status: 400,
+        message: "Wishlist Product Failed",
+      };
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).name,
+    };
+  }
+}
+
+export async function getWishlist(email: string) {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        wishlists: {
+          some: {
+            email,
+          },
+        },
+      },
+      include: {
+        wishlists: {
+          select: {
+            email: true,
+          },
+        },
+      },
+    });
+
+    const res = products.map(({ wishlists, ...product }) => ({
+      ...product,
+      wishlisted: wishlists.some((wishlist) => wishlist.email === email),
+    }));
+
+    return {
+      status: 200,
+      data: res,
+      message: "Success to get wishlist user",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function unWishlistProduct(email: string, id_product: string) {
+  try {
+    const res = await prisma.wishList.delete({
+      where: {
+        id_product_email: {
+          email: email,
+          id_product: id_product,
+        },
+      },
+    });
+    return {
+      status: 200,
+      message: "Success to un-wishlist product",
+      data: res,
     };
   } catch (error) {
     return {
