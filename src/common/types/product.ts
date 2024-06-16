@@ -19,11 +19,12 @@ export const productSchema = z.object({
   id_product: z.string(),
   name: z.string().max(50),
   price: z.coerce.number().nonnegative(),
-  rating: z.coerce.number().nonnegative(),
+  rating: z.coerce.number().nonnegative().max(5, "max rating 5"),
   promotionValue: z.coerce.number().optional(),
   description: z.string(),
   image: z.string(),
   size: z.nativeEnum(Size),
+  wishlisted: z.boolean().optional(),
 });
 
 export const uploadProductSchema = z.object({
