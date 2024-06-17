@@ -5,6 +5,9 @@ import Stars from "../elements/Stars";
 import { useState } from "react";
 import { cn } from "@/common/lib/utils";
 import Link from "next/link";
+import { wishListProductMutation } from "@/queries/productQuery";
+import { useSession } from "next-auth/react";
+import { unWishlistProductMutation } from "@/queries/productQuery";
 
 export default function CardProduct({
   image,
@@ -13,6 +16,7 @@ export default function CardProduct({
   price,
   rating,
   id,
+  wishlisted = false,
 }: {
   image: string;
   promotionValue?: number;
@@ -20,9 +24,23 @@ export default function CardProduct({
   price: number;
   rating: number;
   id: string;
+  wishlisted?: boolean;
 }) {
-  const [isWishlist, setIsWishlist] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const wishlistMutation = wishListProductMutation();
+  const unWishlistMutation = unWishlistProductMutation();
+  const { data } = useSession();
+  const email = data?.user?.email ?? "";
+
+  const handleWishListMutate = async () => {
+    await wishlistMutation.mutateAsync({ email, id });
+  };
+
+  const handleUnWishListMutate = async () => {
+    await unWishlistMutation.mutateAsync(id);
+  };
+
   return (
     <div className="w-72 rounded shadow-md">
       <div className="group relative flex items-center justify-center pb-8 pt-16">
@@ -47,17 +65,17 @@ export default function CardProduct({
             </p>
           )}
         </div>
-        {isWishlist ? (
+        {wishlisted ? (
           <HiHeart
             size={20}
             className="absolute right-5 top-5 cursor-pointer text-secondary2"
-            onClick={() => setIsWishlist(false)}
+            onClick={() => handleUnWishListMutate()}
           />
         ) : (
           <HiOutlineHeart
             size={20}
             className="absolute right-5 top-5 cursor-pointer "
-            onClick={() => setIsWishlist(true)}
+            onClick={() => handleWishListMutate()}
           />
         )}
         <Button
