@@ -77,7 +77,7 @@ export async function getProductsPromotion(email: string) {
           {
             wishlists: {
               none: {
-                email: "popolkupa@gmail.com",
+                email: email,
               },
             },
           },
@@ -241,6 +241,33 @@ export async function unWishlistProduct(email: string, id_product: string) {
       status: 200,
       message: "Success to un-wishlist product",
       data: res,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function getWishlistCount(email: string) {
+  try {
+    const res = await prisma.wishList.findMany({
+      where: {
+        email: email,
+      },
+    });
+    if (res.length <= 0) {
+      return {
+        status: 404,
+        data: 0,
+        message: "Wishlist not found",
+      };
+    }
+    return {
+      status: 200,
+      data: res.length,
+      message: "Success get wishlist count",
     };
   } catch (error) {
     return {
