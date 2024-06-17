@@ -6,4 +6,8 @@ export async function mainMiddleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-export default withAuth(mainMiddleware, [""]);
+export default withAuth(mainMiddleware, [
+  "/profile/wishlist",
+  "/",
+  "/products",
+]);
