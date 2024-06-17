@@ -47,7 +47,7 @@ export async function AddProduct(productData: UploadProductType) {
 
 export async function getProducts() {
   try {
-    const res = await axiosInstance.get("/products");
+    const res = await axiosInstance.get(`/products`);
     return {
       data: res.data,
       status: res.status,
@@ -100,6 +100,86 @@ export async function getProductsById({ id }: { id: string }) {
       data: res.data,
       message: res.data.message,
       status: res.status,
+    };
+  } catch (error) {
+    return {
+      message: (error as Error).message,
+      status: 500,
+    };
+  }
+}
+
+export async function wishLisProduct({
+  email,
+  id,
+}: {
+  email: string;
+  id: string;
+}) {
+  try {
+    const res = await axiosInstance.post("/wishlist/create", { email, id });
+    return {
+      data: res.data,
+      message: res.data.message,
+      status: res.status,
+    };
+  } catch (error) {
+    return {
+      message: (error as Error).message,
+      status: 500,
+    };
+  }
+}
+
+export async function getWishlist() {
+  try {
+    const res = await axiosInstance.get(`/wishlist`);
+    return {
+      data: res.data,
+      status: res.status,
+      message: res.data.message,
+    };
+  } catch (error) {
+    return {
+      message: (error as Error).message,
+      status: 500,
+    };
+  }
+}
+
+export async function unWishlistProduct(id_product: string) {
+  try {
+    const res = await axiosInstance.delete("/un-wishlist", {
+      data: id_product,
+    });
+    return {
+      message: res.data,
+      status: res.status,
+    };
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    if (axiosError) {
+      const errorMessage: { message?: string; status?: number } = {
+        message:
+          typeof axiosError.response?.data === "string"
+            ? axiosError.response?.data
+            : "An unexpected error occurred.",
+        status: axiosError.response?.status,
+      };
+      return errorMessage;
+    } else {
+      return (error as TypeError).name;
+    }
+  }
+}
+
+export async function getWishlistCount() {
+  try {
+    const res = await axiosInstance.get("/wishlist/count");
+    return {
+      data: res.data,
+      status: res.status,
+      message: res.data.message,
     };
   } catch (error) {
     return {
