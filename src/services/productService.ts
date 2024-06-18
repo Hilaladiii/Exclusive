@@ -188,3 +188,60 @@ export async function getWishlistCount() {
     };
   }
 }
+
+export async function addToCartProduct(id_product: string, quantity: number) {
+  try {
+    const res = await axiosInstance.post("/product/cart/create", {
+      id_product: id_product,
+      quantity: quantity,
+    });
+    return {
+      status: res.status,
+      data: res.data,
+      message: res.data.message,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function updateQuantityProduct(
+  id_product: string,
+  quantity: number,
+) {
+  try {
+    const res = await axiosInstance.put("/product/cart/update", {
+      id_product: id_product,
+      quantity: quantity,
+    });
+    return {
+      status: res.status,
+      data: res.data,
+      message: res.data.message,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function getCartProduct() {
+  try {
+    const res = await axiosInstance.get("/product/cart");
+    return {
+      status: res.status,
+      data: res.data,
+      message: res.data.message,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
