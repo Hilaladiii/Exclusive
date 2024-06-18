@@ -23,6 +23,7 @@ model User{
   password String @db.VarChar(100)
   wishlists WishList[]
   purchases Purchase[]
+  carts Cart[]
 }
 
 model Product {
@@ -36,6 +37,7 @@ model Product {
   image String  
   wishlists WishList[]
   purchases Purchase[]
+  carts Cart[]
 }
 
 model WishList{
@@ -64,4 +66,14 @@ model Categorized{
 model Category{
   id_category Int @id
   name String @db.VarChar(30)  
+}
+
+model Cart{
+  id_cart Int @id @default(autoincrement())
+  user User @relation(fields: [email], references: [email])
+  product Product @relation(fields: [id_product],references: [id_product])
+  id_product String
+  email String    
+  quantity Int @db.UnsignedInt @default(1)
+  createdAt DateTime @default(now())
 }
