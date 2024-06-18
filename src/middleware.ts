@@ -10,4 +10,5 @@ export default withAuth(mainMiddleware, [
   "/profile/wishlist",
   "/",
   "/products",
+  "/profile/cart",
 ]);
