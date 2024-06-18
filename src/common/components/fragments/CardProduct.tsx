@@ -5,7 +5,10 @@ import Stars from "../elements/Stars";
 import { useState } from "react";
 import { cn } from "@/common/lib/utils";
 import Link from "next/link";
-import { wishListProductMutation } from "@/queries/productQuery";
+import {
+  addToCartProductMutation,
+  wishListProductMutation,
+} from "@/queries/productQuery";
 import { useSession } from "next-auth/react";
 import { unWishlistProductMutation } from "@/queries/productQuery";
 
@@ -30,6 +33,7 @@ export default function CardProduct({
 
   const wishlistMutation = wishListProductMutation();
   const unWishlistMutation = unWishlistProductMutation();
+  const addToCartMutation = addToCartProductMutation();
   const { data } = useSession();
   const email = data?.user?.email ?? "";
 
@@ -39,6 +43,10 @@ export default function CardProduct({
 
   const handleUnWishListMutate = async () => {
     await unWishlistMutation.mutateAsync(id);
+  };
+
+  const handleAddToCart = async (id_product: string, quantity: number) => {
+    await addToCartMutation.mutateAsync({ id_product, quantity });
   };
 
   return (
@@ -82,6 +90,7 @@ export default function CardProduct({
           variant="black"
           size="small"
           className="absolute bottom-0 hidden w-full rounded-t-none text-center group-hover:grid"
+          onClick={() => handleAddToCart(id, 1)}
         >
           Add To Cart
         </Button>
