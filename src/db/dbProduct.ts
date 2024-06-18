@@ -276,3 +276,120 @@ export async function getWishlistCount(email: string) {
     };
   }
 }
+
+export async function addToCartProduct(
+  email: string,
+  id_product: string,
+  quantity: number,
+) {
+  try {
+    const res = await prisma.cart.create({
+      data: {
+        email: email,
+        id_product: id_product,
+        quantity: quantity,
+      },
+    });
+    return {
+      status: 201,
+      data: res,
+      message: "Succes add to cart",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function getCartProduct(email: string) {
+  try {
+    const res = await prisma.cart.findMany({
+      where: {
+        email: email,
+      },
+      select: {
+        id_cart: true,
+        id_product: true,
+        quantity: true,
+        product: {
+          select: {
+            name: true,
+            price: true,
+            image: true,
+          },
+        },
+      },
+    });
+    if (res.length <= 0) {
+      return {
+        status: 404,
+        message: "Cart not found",
+        data: [],
+      };
+    }
+    return {
+      status: 200,
+      message: "Success get cart products",
+      data: res,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
+
+export async function updateQuantityCart({
+  quantity,
+  email,
+  id_product,
+}: {
+  quantity: number;
+  email: string;
+  id_product: string;
+}) {
+  try {
+    if (quantity == 0) {
+      const res = await prisma.cart.deleteMany({
+        where: {
+          AND: [
+            {
+              email: email,
+            },
+            {
+              id_product: id_product,
+            },
+          ],
+        },
+      });
+      return {
+        status: 200,
+        message: "Success update quantity product",
+      };
+    }
+    const res = await prisma.cart.updateMany({
+      data: {
+        quantity: quantity,
+      },
+      where: {
+        email: email,
+        id_product: id_product,
+      },
+    });
+    console.log(res);
+    return {
+      status: 200,
+      message: "Success update quantity product",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as Error).message,
+    };
+  }
+}
