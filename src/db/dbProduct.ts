@@ -283,6 +283,31 @@ export async function addToCartProduct(
   quantity: number,
 ) {
   try {
+    const isExist = await prisma.cart.findMany({
+      where: {
+        id_product: id_product,
+        email: email,
+      },
+    });
+    if (isExist.length > 0) {
+      const quantity = await prisma.cart.findMany({
+        where: { email: email, id_product: id_product },
+      });
+      const res = await prisma.cart.updateMany({
+        data: {
+          quantity: quantity[0].quantity + 1,
+        },
+        where: {
+          email: email,
+          id_product: id_product,
+        },
+      });
+      return {
+        status: 200,
+        message: "Success add to cart",
+        data: res,
+      };
+    }
     const res = await prisma.cart.create({
       data: {
         email: email,
